@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import GuessBlock from "../GuessBlock";
+import Results from "../Results";
+import GameOverModal from "../GameOverModal";
 
 const API_KEY = 'e5b3f49657b2ccff409c34647081d13b';
 
@@ -23,7 +26,7 @@ const MainGame = () => {
 
     useEffect(() => {
         getRandomcity()
-    },[])
+    }, [])
 
     const getRandomcity = () => {
         const remainingCities = cities.filter((city) => !usedCities.includes(city))
@@ -50,7 +53,7 @@ const MainGame = () => {
 
     const handleCheck = async () => {
         const realTemp = await fetchTemperature()
-        if(realTemp !== undefined) {
+        if (realTemp !== undefined) {
             const tempDifference = Math.abs(userTemperature - realTemp)
             const isCorrect = tempDifference <= 4
 
@@ -65,7 +68,7 @@ const MainGame = () => {
                     }
                 ]
 
-                if(updatedResults.length === 5) {
+                if (updatedResults.length === 5) {
                     const correctGuesses = updatedResults.filter((result) => result.difference).length
                     setHasWon(correctGuesses >= 4)
                     setIsModalVisible(true)
@@ -87,8 +90,19 @@ const MainGame = () => {
     }
 
     return (
-        <div>
-
+        <div className="game_container">
+            <GuessBlock
+                currentCity={currentCity}
+                userTemperature={userTemperature}
+                setUserTemperature={setUserTemperature}
+                handleCheck={handleCheck}
+            />
+            <Results results={results} />
+            <GameOverModal
+                isModalVisible={isModalVisible}
+                hasWon={hasWon}
+                handleModalClose={handleModalClose}
+            />
         </div>
     )
 }
