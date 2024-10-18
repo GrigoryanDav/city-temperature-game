@@ -94,6 +94,8 @@ const MainGame = () => {
         getRandomcity()
     }
 
+    const getBackgroundColor = (difference) => (difference ? 'green' : 'red')
+
     return (
         <div className="game_container">
             <GuessBlock
@@ -102,7 +104,7 @@ const MainGame = () => {
                 setUserTemperature={setUserTemperature}
                 handleCheck={handleCheck}
             />
-            <Results results={results} />
+            <Results results={results} getBackgroundColor={getBackgroundColor} />
             <GameOverModal
                 isModalVisible={isModalVisible}
                 hasWon={hasWon}
