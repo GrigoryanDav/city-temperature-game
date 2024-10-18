@@ -3,11 +3,13 @@ import './index.css'
 
 const { Title } = Typography
 
-const GuessBlock = ({ currentCity, userTemperature, setUserTemperature, handleCheck }) => {
+const GuessBlock = ({ currentCity, userTemperature, setUserTemperature, handleCheck, gameStarted, handleStart }) => {
     return (
         <div className='guess_block'>
             <Title level={3}>City Game</Title>
-            <Title level={4}>{currentCity}</Title>
+            {gameStarted ? (
+                <>
+                <Title level={4}>{currentCity}</Title>
             <Input
                 type='number'
                 value={userTemperature}
@@ -22,6 +24,12 @@ const GuessBlock = ({ currentCity, userTemperature, setUserTemperature, handleCh
             >
                 Check
             </Button>
+                </>
+            ) : (
+                <Button type='primary' onClick={handleStart}>
+                    Start
+                </Button>
+            )}
         </div>
     )
 }

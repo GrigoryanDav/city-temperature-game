@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GuessBlock from "../GuessBlock";
 import Results from "../Results";
 import GameOverModal from "../GameOverModal";
@@ -25,17 +25,13 @@ const MainGame = () => {
     const [userTemperature, setUserTemperature] = useState('')
     const [hasWon, setHasWon] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false)
-
-    useEffect(() => {
-        getRandomcity()
-    }, [])
+    const [gameStarted, setGameStarted] = useState(false)
 
     const getRandomcity = () => {
         const remainingCities = cities.filter((city) => !usedCities.includes(city))
         if (remainingCities.length === 0) {
             setUsedcities([])
             setResults([])
-            return getRandomcity()
         }
         const randomCity = remainingCities[Math.floor(Math.random() * remainingCities.length)]
         setCurrentCity(randomCity)
@@ -52,6 +48,11 @@ const MainGame = () => {
         } catch (err) {
             console.error(`Message: ${err}`)
         }
+    }
+
+    const handleStart = () => {
+        setGameStarted(true)
+        getRandomcity()
     }
 
     const handleCheck = async () => {
@@ -91,6 +92,7 @@ const MainGame = () => {
         setIsModalVisible(false)
         setResults([])
         setUsedcities([])
+        setGameStarted(false)
         getRandomcity()
     }
 
@@ -103,6 +105,8 @@ const MainGame = () => {
                 userTemperature={userTemperature}
                 setUserTemperature={setUserTemperature}
                 handleCheck={handleCheck}
+                gameStarted={gameStarted}
+                handleStart={handleStart}
             />
             <Results results={results} getBackgroundColor={getBackgroundColor} />
             <GameOverModal
