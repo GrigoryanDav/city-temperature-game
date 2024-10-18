@@ -1,5 +1,5 @@
 import { Typography, Input, Button } from 'antd'
-
+import './index.css'
 
 const { Title } = Typography
 
