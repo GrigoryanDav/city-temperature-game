@@ -1,5 +1,5 @@
 import { Typography } from "antd";
-
+import './index.css'
 
 const { Text } = Typography
 
