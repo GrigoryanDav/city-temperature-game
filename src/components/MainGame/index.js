@@ -3,6 +3,7 @@ import GuessBlock from "../GuessBlock";
 import Results from "../Results";
 import GameOverModal from "../GameOverModal";
 import { sounds, playSound } from "../../utils/sounds";
+import './index.css'
 
 const API_KEY = 'e5b3f49657b2ccff409c34647081d13b';
 

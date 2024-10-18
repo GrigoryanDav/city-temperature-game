@@ -1,0 +1,24 @@
+.game_container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    background-image: url('https://cdn.vectorstock.com/i/500p/36/59/family-board-game-for-children-with-cute-weather-vector-43723659.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+@media(max-width:768px) {
+    .game_container {
+        padding: 20px;
+      }
+}
+
+@media(max-width:480px) {
+    .game_container {
+        padding: 10px;
+      }
+}
