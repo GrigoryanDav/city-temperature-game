@@ -37,6 +37,7 @@ const MainGame = () => {
             return getRandomcity()
         }
         const randomCity = remainingCities[Math.floor(Math.random() * remainingCities.length)]
+        setCurrentCity(randomCity)
         setUsedcities((prev) => [...prev, randomCity])
     };
 
