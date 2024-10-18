@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import GuessBlock from "../GuessBlock";
 import Results from "../Results";
 import GameOverModal from "../GameOverModal";
+import { sounds, playSound } from "../../utils/sounds";
 
 const API_KEY = 'e5b3f49657b2ccff409c34647081d13b';
 
@@ -56,6 +57,7 @@ const MainGame = () => {
         if (realTemp !== undefined) {
             const tempDifference = Math.abs(userTemperature - realTemp)
             const isCorrect = tempDifference <= 4
+            playSound(isCorrect ? sounds.success : sounds.fail)
 
             setResults((prevResults) => {
                 const updatedResults = [
@@ -72,6 +74,7 @@ const MainGame = () => {
                     const correctGuesses = updatedResults.filter((result) => result.difference).length
                     setHasWon(correctGuesses >= 4)
                     setIsModalVisible(true)
+                    playSound(sounds.gameOver)
                 } else {
                     getRandomcity()
                 }
