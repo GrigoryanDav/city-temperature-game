@@ -1,4 +1,5 @@
 import MainGame from "./components/MainGame"
+import './styles/global.css'
 
 const App = () => {
     return (
