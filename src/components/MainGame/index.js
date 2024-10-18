@@ -17,11 +17,14 @@ const MainGame = () => {
     const [currentCity, setCurrentCity] = useState('')
     const [usedCities, setUsedcities] = useState([])
     const [results, setResults] = useState([])
+    const [userTemperature, setUserTemperature] = useState('')
+    const [hasWon, setHasWon] = useState(false)
+    const [isModalVisible, setIsModalVisible] = useState(false)
 
     useEffect(() => {
         getRandomcity()
     },[])
-    
+
     const getRandomcity = () => {
         const remainingCities = cities.filter((city) => !usedCities.includes(city))
         if (remainingCities.length === 0) {
@@ -43,6 +46,36 @@ const MainGame = () => {
         } catch (err) {
             console.error(`Message: ${err}`)
         }
+    }
+
+    const handleCheck = async () => {
+        const realTemp = await fetchTemperature()
+        if(realTemp !== undefined) {
+            const tempDifference = Math.abs(userTemperature - realTemp)
+            const isCorrect = tempDifference <= 4
+
+            setResults((prevResults) => {
+                const updatedResults = [
+                    ...prevResults,
+                    {
+                        city: currentCity,
+                        realTemp,
+                        userTemp: userTemperature,
+                        difference: isCorrect,
+                    }
+                ]
+
+                if(updatedResults.length === 5) {
+                    const correctGuesses = updatedResults.filter((result) => result.difference).length
+                    setHasWon(correctGuesses >= 4)
+                    setIsModalVisible(true)
+                } else {
+                    getRandomcity()
+                }
+                return updatedResults
+            })
+        }
+        setUserTemperature('')
     }
 
     return (
