@@ -78,6 +78,14 @@ const MainGame = () => {
         setUserTemperature('')
     }
 
+
+    const handleModalClose = () => {
+        setIsModalVisible(false)
+        setResults([])
+        setUsedcities([])
+        getRandomcity()
+    }
+
     return (
         <div>
 
