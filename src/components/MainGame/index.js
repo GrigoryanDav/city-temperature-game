@@ -2,23 +2,13 @@ import { useState } from "react";
 import GuessBlock from "../GuessBlock";
 import Results from "../Results";
 import GameOverModal from "../GameOverModal";
+import { API_KEY, BASE_URL, cities } from "../../utils/constants";
 import { sounds, playSound } from "../../utils/sounds";
 import './index.css'
 
-const API_KEY = 'e5b3f49657b2ccff409c34647081d13b';
+
 
 const MainGame = () => {
-    const cities = [
-        'New York', 'London', 'Yerevan', 'Tokyo', 'Paris', 'Sydney', 'Berlin', 'Moscow',
-        'Rome', 'Los Angeles', 'Toronto', 'Beijing', 'Seoul', 'Singapore',
-        'Dubai', 'Madrid', 'Mumbai', 'Istanbul', 'Bangkok', 'Vienna',
-        'San Francisco', 'Mexico City', 'Lima', 'Cairo', 'Buenos Aires',
-        'Rio de Janeiro', 'Johannesburg', 'Chicago', 'Hong Kong', 'Shanghai',
-        'Barcelona', 'Dublin', 'Warsaw', 'Lisbon', 'Helsinki', 'Stockholm',
-        'Oslo', 'Zurich', 'Amsterdam', 'Prague', 'Budapest'
-    ];
-
-
     const [currentCity, setCurrentCity] = useState('')
     const [usedCities, setUsedcities] = useState([])
     const [results, setResults] = useState([])
@@ -40,7 +30,9 @@ const MainGame = () => {
 
     const fetchTemperature = async () => {
         try {
-            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&units=metric&appid=${API_KEY}`)
+            const response = await fetch(
+                `${BASE_URL}?q=${currentCity}&units=metric&appid=${API_KEY}`
+            )
             const data = await response.json()
             if (response.ok) {
                 return Math.round(data.main.temp)
