@@ -19,10 +19,6 @@ const MainGame = () => {
 
     const getRandomcity = () => {
         const remainingCities = cities.filter((city) => !usedCities.includes(city))
-        if (remainingCities.length === 0) {
-            setUsedcities([])
-            setResults([])
-        }
         const randomCity = remainingCities[Math.floor(Math.random() * remainingCities.length)]
         setCurrentCity(randomCity)
         setUsedcities((prev) => [...prev, randomCity])
